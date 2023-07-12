@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { Link } from "./link";
 import { useRouter } from "next/router";
+import Link from "./link";
 
-export const Navbar = () => {
+export default function Navbar() {
   const router = useRouter();
   return (
-    <div className="static flex h-14 w-full flex-row items-center bg-bgLight pl-pageGutter">
+    <div className="static left-0 right-0 top-0 flex h-14 w-full flex-row items-center justify-center bg-bgLight sm:pl-10 md:justify-start lg:pl-pageGutter">
       <div className="mr-8">
         <Image src="/logo.png" alt="blog logo" width={39} height={44}></Image>
       </div>
@@ -25,7 +25,7 @@ export const Navbar = () => {
       </div>
     </div>
   );
-};
+}
 
 const navbarLinks = [
   {

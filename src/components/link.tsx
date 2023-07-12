@@ -10,7 +10,7 @@ type MyLinkProps = LinkProps & {
   inactiveClass?: string;
 };
 
-export const Link = (props: MyLinkProps) => {
+export default function Link(props: MyLinkProps) {
   return (
     <div
       className={classNames("", props.className, {
@@ -21,4 +21,4 @@ export const Link = (props: MyLinkProps) => {
       <NextLink href={props.href}>{props.children}</NextLink>
     </div>
   );
-};
+}

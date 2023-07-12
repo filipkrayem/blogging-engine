@@ -1,19 +1,18 @@
 import { api } from "~/utils/api";
-import { Loading } from "./loading";
-import { Error } from "./error";
-import { formatDate } from "~/utils/formatDate";
+import Loading from "../ui/loading";
+import Error from "../error";
 import { UploadButton } from "~/utils/uploadthing";
-import { PostPreview } from "./postPreview";
+import PostPreview from "./postPreview";
 
-export const Posts = () => {
+export default function Posts() {
   const { data, isLoading, isError } = api.posts.getPublished.useQuery();
 
   if (isLoading) return <Loading />;
   if (isError) return <Error />;
+  if (!data) return <div>No posts yet... :(</div>;
 
   return (
     <>
-      {!data && <p>No posts yet... :(</p>}
       {data?.map((post) => (
         <PostPreview key={post.id} {...post} />
       ))}
@@ -31,4 +30,4 @@ export const Posts = () => {
       />
     </>
   );
-};
+}
