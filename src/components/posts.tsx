@@ -3,6 +3,7 @@ import { Loading } from "./loading";
 import { Error } from "./error";
 import { formatDate } from "~/utils/formatDate";
 import { UploadButton } from "~/utils/uploadthing";
+import { PostPreview } from "./postPreview";
 
 export const Posts = () => {
   const { data, isLoading, isError } = api.posts.getPublished.useQuery();
@@ -14,16 +15,7 @@ export const Posts = () => {
     <>
       {!data && <p>No posts yet... :(</p>}
       {data?.map((post) => (
-        <div
-          key={post.id}
-          className="flex h-72 w-full flex-col items-start justify-start gap-2 rounded-xl bg-neutral-200/40 p-5"
-        >
-          <h2 className="text-2xl font-bold">{post.title}</h2>
-          <p className="text-sm text-neutral-500">
-            {formatDate(post.created_at, { dateStyle: "medium" })} -{" "}
-            {post.author.name}
-          </p>
-        </div>
+        <PostPreview key={post.id} {...post} />
       ))}
       <UploadButton
         endpoint="imageUploader"

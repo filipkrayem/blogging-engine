@@ -6,6 +6,8 @@ export default {
     extend: {
       colors: {
         bgLight: "#F8F9FA",
+        secondary: "#6C757D",
+        body: "#212529",
       },
       spacing: {
         pageGutter: "225px",
