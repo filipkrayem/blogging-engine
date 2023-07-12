@@ -1,8 +1,7 @@
 import { type Comment, type User } from "@prisma/client";
 import { formatDate } from "~/utils/formatDate";
-import AuthorAndDate from "../ui/authorAndDate";
-import CommentActions from "./commentActions";
 import Avatar from "../ui/avatar";
+import CommentActions from "./commentActions";
 
 type CommentProps = {
   comment: Comment & { author: User };
@@ -11,6 +10,7 @@ type CommentProps = {
 export default function Comment(props: CommentProps) {
   const { comment } = props;
 
+  //TODO: mozna by bylo lepsi passovat cely comment jako props?
   return (
     <div className="flex flex-row gap-7">
       <Avatar imageUrl={comment.author.image} size={44} />
@@ -23,7 +23,8 @@ export default function Comment(props: CommentProps) {
           </p>
         </div>
         <p className="text-base">{props.comment.content}</p>
-        <CommentActions />
+
+        <CommentActions comment={comment} />
       </div>
     </div>
   );

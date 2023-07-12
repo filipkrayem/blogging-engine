@@ -10,12 +10,13 @@ type CommentsProps = {
 };
 
 export default function Comments(props: CommentsProps) {
+  const { postId } = props;
   const {
     data: comments,
     isError,
     error,
     isLoading,
-  } = api.comments.getComments.useQuery({ postId: props.postId, page: 1 });
+  } = api.comments.get.useQuery({ postId: postId });
 
   if (isError) return <Error message={error.message} />;
 
@@ -24,9 +25,10 @@ export default function Comments(props: CommentsProps) {
       <h2 className="text-2xl font-medium leading-7 text-black">
         Comments ({comments?.length})
       </h2>
-      <CommentPrompt />
 
-      <div>
+      <CommentPrompt postId={postId} />
+
+      <div className="flex max-h-96 flex-col gap-6 overflow-y-scroll">
         {isLoading ? (
           <Loading />
         ) : (

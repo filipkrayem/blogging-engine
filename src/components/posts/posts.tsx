@@ -1,7 +1,7 @@
 import { api } from "~/utils/api";
-import Loading from "../ui/loading";
-import Error from "../error";
 import { UploadButton } from "~/utils/uploadthing";
+import Error from "../error";
+import Loading from "../ui/loading";
 import PostPreview from "./postPreview";
 
 export default function Posts() {
