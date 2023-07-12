@@ -6,7 +6,6 @@ import AuthorAndDate from "~/components/ui/authorAndDate";
 import { api } from "~/utils/api";
 import NotFound from "../404";
 import Image from "next/image";
-import { micromark } from "micromark";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Divider from "~/components/ui/divider";
 import Comments from "~/components/comments/comments";
@@ -34,7 +33,7 @@ export default function PostDetail() {
 
   return (
     <div className="flex w-full flex-1 flex-col gap-6 lg:flex-row">
-      <div className="flex flex-1 flex-col items-start justify-start gap-6 lg:w-9/12">
+      <div className="flex flex-1 flex-col items-start justify-start gap-6 lg:w-7/12 lg:max-w-6xl">
         <h2 className="text-[40px] font-medium leading-[48px] text-black">
           {post.title}
         </h2>
@@ -54,11 +53,9 @@ export default function PostDetail() {
         <div className="text-xl font-normal leading-8 text-body">
           <ReactMarkdown>{post.content}</ReactMarkdown>
         </div>
-        <div className="my-4 w-full">
-          <Divider />
-        </div>
+        <Divider />
 
-        <Comments comments={post.comments} />
+        <Comments postId={post.id} />
       </div>
       <div className="">suggested articles</div>
     </div>

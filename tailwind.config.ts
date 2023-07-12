@@ -9,6 +9,8 @@ export default {
         secondary: "#6C757D",
         primary: "#007BFF",
         body: "#212529",
+        borderLight: "#DFDFDF",
+        muted: "#6C757D",
       },
       spacing: {
         pageGutter: "225px",

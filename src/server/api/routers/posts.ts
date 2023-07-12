@@ -9,7 +9,14 @@ export const postsRouter = createTRPCRouter({
   getPublished: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.post.findMany({
       where: { published: true },
-      include: { author: true, comments: true },
+      include: {
+        author: true,
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
+      },
     });
   }),
 
@@ -18,14 +25,23 @@ export const postsRouter = createTRPCRouter({
 
     return ctx.prisma.post.findMany({
       where: { published: false, authorId: userId },
-      include: { author: true, comments: true },
+      include: {
+        author: true,
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
+      },
     });
   }),
 
   getById: publicProcedure.input(z.string()).query(({ ctx, input }) => {
     return ctx.prisma.post.findUnique({
       where: { id: input },
-      include: { author: true, comments: true },
+      include: {
+        author: true,
+      },
     });
   }),
 });

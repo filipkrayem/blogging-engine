@@ -2,12 +2,12 @@ type LoadingProps = {
   size?: number;
 };
 export default function Loading(props: LoadingProps) {
-  const defaultSize = 16;
+  const defaultSize = 32;
   return (
-    <div role="status">
+    <div role="status" className="inline-flex w-full items-center justify-center">
       <svg
         aria-hidden="true"
-        className="mr-2 inline h-16 w-16 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+        className="ml-1/2 mr-2 inline-flex animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@ export default function Loading(props: LoadingProps) {
 export function LoadingPage() {
   return (
     <div className="absolute bottom-0 left-0 right-0 top-0 flex h-screen w-screen items-center justify-center">
-      <Loading size={32} />
+      <Loading size={64} />
     </div>
   );
 }

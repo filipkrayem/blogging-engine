@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-white text-body;
+  @apply bg-white text-base text-body;
 }
 
 #__next {

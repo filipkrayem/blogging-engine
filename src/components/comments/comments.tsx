@@ -1,20 +1,39 @@
-import { type Comment as CommentType } from "@prisma/client";
+import { api } from "~/utils/api";
+import Loading from "../ui/loading";
 import Comment from "./comment";
-import CommentPrompt from "./commentPropmt";
+import CommentPrompt from "./commentPrompt";
+
+import Error from "../error";
 
 type CommentsProps = {
-  comments: CommentType[];
+  postId: string;
 };
 
 export default function Comments(props: CommentsProps) {
+  const {
+    data: comments,
+    isError,
+    error,
+    isLoading,
+  } = api.comments.getComments.useQuery({ postId: props.postId, page: 1 });
+
+  if (isError) return <Error message={error.message} />;
+
   return (
-    <div className="flex w-full flex-col gap-6 ">
+    <div className="flex w-full flex-col gap-6">
+      <h2 className="text-2xl font-medium leading-7 text-black">
+        Comments ({comments?.length})
+      </h2>
       <CommentPrompt />
 
       <div>
-        {props.comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
-        ))}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
+          ))
+        )}
       </div>
     </div>
   );

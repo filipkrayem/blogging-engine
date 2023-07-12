@@ -14,7 +14,7 @@ export default function Posts() {
   return (
     <>
       {data?.map((post) => (
-        <PostPreview key={post.id} {...post} />
+        <PostPreview key={post.id} post={post} />
       ))}
       <UploadButton
         endpoint="imageUploader"
