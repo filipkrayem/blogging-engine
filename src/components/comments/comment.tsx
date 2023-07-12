@@ -1,8 +1,7 @@
 import { type Comment, type User } from "@prisma/client";
 import { formatDate } from "~/utils/formatDate";
-import AuthorAndDate from "../ui/authorAndDate";
-import CommentActions from "./commentActions";
 import Avatar from "../ui/avatar";
+import CommentActions from "./commentActions";
 
 type CommentProps = {
   comment: Comment & { author: User };
@@ -23,7 +22,7 @@ export default function Comment(props: CommentProps) {
           </p>
         </div>
         <p className="text-base">{props.comment.content}</p>
-        <CommentActions />
+        <CommentActions commentId={comment.id} />
       </div>
     </div>
   );

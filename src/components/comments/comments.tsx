@@ -15,7 +15,7 @@ export default function Comments(props: CommentsProps) {
     isError,
     error,
     isLoading,
-  } = api.comments.getComments.useQuery({ postId: props.postId, page: 1 });
+  } = api.comments.get.useQuery({ postId: props.postId, page: 1 });
 
   if (isError) return <Error message={error.message} />;
 

@@ -28,6 +28,9 @@ const config = {
         fixStyle: "inline-type-imports",
       },
     ],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/restrict-plus-operands": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
   },
 };

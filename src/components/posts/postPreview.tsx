@@ -1,8 +1,8 @@
-import { type User, type Post, type Comment } from "@prisma/client";
-import Link from "../link";
-import { useRouter } from "next/router";
-import AuthorAndDate from "../ui/authorAndDate";
+import { type Post, type User } from "@prisma/client";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import Link from "../link";
+import AuthorAndDate from "../ui/authorAndDate";
 
 type PostPreviewProps = {
   post: Post & {
