@@ -10,7 +10,6 @@ type CommentProps = {
 export default function Comment(props: CommentProps) {
   const { comment } = props;
 
-  //TODO: mozna by bylo lepsi passovat cely comment jako props?
   return (
     <div className="flex flex-row gap-7">
       <Avatar imageUrl={comment.author.image} size={44} />
