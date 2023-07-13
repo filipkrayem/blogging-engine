@@ -26,7 +26,7 @@ export default function PostPreview(props: PostPreviewProps) {
       className="flex w-full  cursor-pointer flex-row items-start gap-6"
       onClick={handlePostClick}
     >
-      <div className="relative h-60 w-72 ">
+      <div className="relative h-28 w-36 sm:h-60 sm:w-72 ">
         {post.imageUrl && (
           <Image
             src={post.imageUrl}
@@ -43,7 +43,7 @@ export default function PostPreview(props: PostPreviewProps) {
 
         <p className="">{post.content}</p>
 
-        <div className="flex flex-row items-center gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link href={`/posts/${post.id}`} className="text-sm text-primary">
             Read whole article
           </Link>

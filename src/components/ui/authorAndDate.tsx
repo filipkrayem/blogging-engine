@@ -1,5 +1,5 @@
-import { formatDate } from "~/utils/formatDate";
 import Image from "next/image";
+import { formatDate } from "~/utils/formatDate";
 
 type AuthorAndDateProps = {
   name: string;
@@ -8,9 +8,9 @@ type AuthorAndDateProps = {
 
 export default function AuthorAndDate(props: AuthorAndDateProps) {
   return (
-    <div className="flex flex-row items-center gap-3">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <p className="text-sm leading-tight text-gray-500">{props.name}</p>
-      <div>
+      <div className="hidden sm:block">
         <Image src="/dot.svg" alt="dot" width={4} height={4}></Image>
       </div>
       <p className="text-sm leading-tight text-gray-500">
