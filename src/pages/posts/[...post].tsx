@@ -11,9 +11,6 @@ import { api } from "~/utils/api";
 import NotFound from "../404";
 
 export default function PostDetail() {
-  const router = useRouter();
-  console.log(router);
-
   const [id, setId] = useState("");
 
   useEffect(() => {
@@ -34,24 +31,24 @@ export default function PostDetail() {
   return (
     <div className="flex w-full flex-1 flex-col gap-6 lg:flex-row">
       <div className="flex w-full flex-1 flex-col gap-6 lg:w-7/12 lg:max-w-6xl">
-        <div className="flex h-full flex-1 flex-col items-start justify-start gap-6 ">
-          <h2 className="text-[40px] font-medium leading-[48px] text-black">
-            {post.title}
-          </h2>
+        <div className="flex flex-col items-start justify-start gap-6 ">
+          <h2 className="h1 font-medium">{post.title}</h2>
 
           <AuthorAndDate name={post.author.name} date={post.created_at} />
 
           {post.imageUrl && (
-            <div className="relative h-[300px] w-full">
+            <div className="relative w-full">
               <Image
                 src={post.imageUrl}
                 alt="Post image"
-                fill={true}
-                style={{ objectFit: "cover" }}
+                width={0}
+                height={0}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                style={{ width: "100%", height: "auto" }} // optional
               />
             </div>
           )}
-          <div className="text-xl font-normal leading-8 text-body">
+          <div className="text-xl font-normal leading-8 text-body prose lg:prose-xl">
             <ReactMarkdown>{post.content}</ReactMarkdown>
           </div>
           <Divider />

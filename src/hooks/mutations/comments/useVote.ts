@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
 
 export default function useVote() {
@@ -26,7 +27,11 @@ export default function useVote() {
       return prevData;
     },
 
-    onError: (_err, vars, prevData) => {
+    onError: (err, vars, prevData) => {
+      console.error(err);
+      toast.error(
+        err.message ?? "Something went wrong. Please try again later."
+      );
       utils.comments.get.setData({ postId: vars.postId }, prevData);
     },
   });

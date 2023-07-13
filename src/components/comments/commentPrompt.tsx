@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import Avatar from "../ui/avatar";
-import Input from "../ui/input";
+import Input from "../form/input";
 import useCreateComment from "~/hooks/mutations/comments/useCreateComment";
 
 type FormInput = {
@@ -46,7 +46,6 @@ export default function CommentPrompt(props: CommentPromptProps) {
   return (
     <form
       className="flex w-full flex-row gap-7"
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit(onSubmit)}
     >
       <Avatar imageUrl={session.data.user.image} size={44} />
@@ -55,7 +54,7 @@ export default function CommentPrompt(props: CommentPromptProps) {
           name="content"
           placeholder="Join the discussion..."
           register={register}
-          required
+          registerOptions={{ required: true }}
         />
       </div>
     </form>

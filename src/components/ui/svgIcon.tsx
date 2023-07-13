@@ -13,7 +13,7 @@ export default function SvgIcon(props: IconProps) {
 
   return (
     <Image
-      src={`/${name}.svg`}
+      src={`/icons/${name}.svg`}
       alt={alt ?? "icon"}
       width={size ?? defaultSize}
       height={size ?? defaultSize}

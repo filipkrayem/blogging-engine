@@ -22,9 +22,7 @@ export default function Comments(props: CommentsProps) {
 
   return (
     <div className="flex w-full flex-col gap-6">
-      <h2 className="text-2xl font-medium leading-7 text-black">
-        Comments ({comments?.length})
-      </h2>
+      <h2 className="h2">Comments ({comments?.length})</h2>
 
       <CommentPrompt postId={postId} />
 

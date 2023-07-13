@@ -9,3 +9,19 @@ body {
 #__next {
   @apply flex min-h-screen flex-col;
 }
+
+@layer components {
+  .h1 {
+    @apply text-4xl font-bold text-body;
+  }
+  .h2 {
+    @apply text-2xl font-bold text-body;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primaryDarker;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondaryDarker;
+  }
+}

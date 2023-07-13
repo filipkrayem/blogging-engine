@@ -6,6 +6,7 @@ import Head from "next/head";
 import Navbar from "~/components/navbar/navbar";
 import "~/styles/globals.css";
 import { api } from "~/utils/api";
+import { Toaster } from "react-hot-toast";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -24,6 +25,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <main className="flex h-full flex-1 flex-col items-start justify-center gap-16 px-10 py-16 lg:px-pageGutter">
         <Component {...pageProps} />
       </main>
+      <Toaster position="bottom-right" />
     </SessionProvider>
   );
 };

@@ -7,7 +7,9 @@ export default {
       colors: {
         bgLight: "#F8F9FA",
         secondary: "#6C757D",
+        secondaryDarker: "#5F666D",
         primary: "#007BFF",
+        primaryDarker: "#0063CC",
         body: "#212529",
         borderLight: "#DFDFDF",
         muted: "#6C757D",
@@ -18,5 +20,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 } satisfies Config;

@@ -16,18 +16,6 @@ export default function Posts() {
       {data?.map((post) => (
         <PostPreview key={post.id} post={post} />
       ))}
-      <UploadButton
-        endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          alert("Upload Completed");
-        }}
-        onUploadError={(error: Error) => {
-          // Do something with the error.
-          alert(`ERROR! ${error.message}`);
-        }}
-      />
     </>
   );
 }

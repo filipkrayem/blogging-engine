@@ -9,6 +9,7 @@ export const postsRouter = createTRPCRouter({
   getPublished: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.post.findMany({
       where: { published: true },
+      orderBy: { created_at: "desc" },
       include: {
         author: true,
         _count: {
@@ -44,4 +45,23 @@ export const postsRouter = createTRPCRouter({
       },
     });
   }),
+
+  create: protectedProcedure
+    .input(
+      z.object({ title: z.string(), content: z.string(), imageUrl: z.string() })
+    )
+    .mutation(({ ctx, input }) => {
+      const { title, content, imageUrl } = input;
+      const userId = ctx.session.user.id;
+
+      return ctx.prisma.post.create({
+        data: {
+          title,
+          content,
+          imageUrl,
+          author: { connect: { id: userId } },
+          published: true,
+        },
+      });
+    }),
 });
