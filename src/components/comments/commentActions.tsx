@@ -1,47 +1,29 @@
-import { api } from "~/utils/api";
+import { Comment } from "@prisma/client";
 import Divider from "../ui/divider";
 import SvgIcon from "../ui/svgIcon";
+import useVote from "~/hooks/mutations/comments/useVote";
 
 type CommentActionsProps = {
-  commentId: string;
+  comment: Comment;
 };
 
 export default function CommentActions(props: CommentActionsProps) {
-  const { commentId } = props;
+  const { id, upvotes, postId } = props.comment;
 
-  const utils = api.useContext();
-  const votes = api.comments.getVotes.useQuery({ commentId });
-
-  const vote = api.comments.vote.useMutation({
-    onMutate: async ({ commentId, vote }) => {
-      await utils.comments.getVotes.cancel({ commentId });
-      const prevData = utils.comments.getVotes.getData()!;
-
-      utils.comments.getVotes.setData({ commentId }, (prev) => ({
-        upvotes: vote === "increment" ? prev!.upvotes + 1 : prev!.upvotes - 1,
-      }));
-
-      return prevData;
-    },
-    onError: (_err, { commentId }, prevData) => {
-      utils.comments.getVotes.setData({ commentId }, () => ({
-        upvotes: prevData!.upvotes,
-      }));
-    },
-  });
+  const vote = useVote();
 
   const handleUpvote = () => {
-    vote.mutate({ commentId, vote: "increment" });
+    vote.mutate({ commentId: id, vote: "increment", postId: postId });
   };
   const handleDownvote = () => {
-    vote.mutate({ commentId, vote: "decrement" });
+    vote.mutate({ commentId: id, vote: "decrement", postId: postId });
   };
 
   return (
     <div className="flex flex-row items-center gap-2">
-      <div className="text-black">
-        {votes.isLoading ? 0 : votes.data?.upvotes}
-      </div>
+      <p className="flex w-7 items-center justify-center text-black">
+        {upvotes}
+      </p>
       <Divider vertical />
       <SvgIcon name="chevron" size={14} onClick={() => void handleUpvote()} />
       <Divider vertical />

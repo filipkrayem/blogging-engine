@@ -6,14 +6,17 @@ export const commentsRouter = createTRPCRouter({
     .input(
       z.object({
         postId: z.string(),
-        page: z.number().default(1),
+        // page: z.number().default(1),
       })
     )
     .query(({ ctx, input }) => {
       return ctx.prisma.comment.findMany({
         where: { postId: input.postId },
-        take: 10,
-        skip: (input.page - 1) * 10,
+        take: 100,
+        // skip: (input.page - 1) * 10,
+        orderBy: {
+          created_at: "desc",
+        },
         include: {
           author: true,
         },
@@ -41,6 +44,7 @@ export const commentsRouter = createTRPCRouter({
     .input(
       z.object({
         commentId: z.string(),
+        postId: z.string(),
         vote: z.enum(["increment", "decrement"]),
       })
     )
@@ -51,21 +55,6 @@ export const commentsRouter = createTRPCRouter({
           upvotes: {
             [input.vote]: 1,
           },
-        },
-      });
-    }),
-
-  getVotes: publicProcedure
-    .input(
-      z.object({
-        commentId: z.string(),
-      })
-    )
-    .query(async ({ ctx, input }) => {
-      return await ctx.prisma.comment.findUnique({
-        where: { id: input.commentId },
-        select: {
-          upvotes: true,
         },
       });
     }),
