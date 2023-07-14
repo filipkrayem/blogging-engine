@@ -22,7 +22,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
       <Navbar />
 
-      <main className="flex h-full flex-1 flex-col items-start justify-center gap-16 px-10 py-16 lg:px-pageGutter">
+      <main className="flex h-full flex-1 flex-col items-start justify-start gap-16 px-10 py-16 lg:px-pageGutter">
         <Component {...pageProps} />
       </main>
       <Toaster position="bottom-right" />

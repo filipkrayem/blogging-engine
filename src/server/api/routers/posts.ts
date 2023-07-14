@@ -64,4 +64,20 @@ export const postsRouter = createTRPCRouter({
         },
       });
     }),
+
+  getByUser: protectedProcedure.query(({ ctx }) => {
+    const userId = ctx.session.user.id;
+
+    return ctx.prisma.post.findMany({
+      where: { authorId: userId },
+      include: {
+        author: true,
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
+      },
+    });
+  }),
 });

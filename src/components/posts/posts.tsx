@@ -13,6 +13,9 @@ export default function Posts() {
 
   return (
     <>
+      <div>
+        <h1 className="h1">Recent articles</h1>
+      </div>
       {data?.map((post) => (
         <PostPreview key={post.id} post={post} />
       ))}

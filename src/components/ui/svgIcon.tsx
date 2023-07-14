@@ -5,10 +5,11 @@ type IconProps = {
   alt?: string;
   rotation?: number;
   onClick?: () => void;
+  className?: string;
 };
 
 export default function SvgIcon(props: IconProps) {
-  const { size, rotation, name, alt, onClick } = props;
+  const { size, rotation, name, alt, onClick, className } = props;
   const defaultSize = 12;
 
   return (
@@ -19,8 +20,9 @@ export default function SvgIcon(props: IconProps) {
       height={size ?? defaultSize}
       style={{
         transform: `rotate(${rotation ?? 0}deg)`,
-        cursor: onClick ? "pointer" : "default",
+        cursor: onClick ? "pointer" : undefined,
       }}
+      className={className}
       onClick={props.onClick}
     ></Image>
   );

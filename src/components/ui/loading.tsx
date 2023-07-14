@@ -4,10 +4,13 @@ type LoadingProps = {
 export default function Loading(props: LoadingProps) {
   const defaultSize = 32;
   return (
-    <div role="status" className="inline-flex w-full items-center justify-center">
+    <div
+      role="status"
+      className="inline-flex w-full items-center justify-center"
+    >
       <svg
         aria-hidden="true"
-        className="ml-1/2 mr-2 inline-flex animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+        className="ml-1/2 mr-2 inline-flex animate-spin fill-primary text-gray-200 dark:text-gray-600"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

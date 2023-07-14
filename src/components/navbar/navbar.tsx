@@ -15,7 +15,7 @@ export default function Navbar() {
         <div className="flex items-center gap-8">
           <div>
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               alt="blog logo"
               width={39}
               height={44}
