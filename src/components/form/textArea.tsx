@@ -22,6 +22,13 @@ export default function TextArea(props: TextAreaProps) {
     name,
     className,
   } = props;
+
+  const textAreaProps = {
+    ...props,
+    registerOptions: undefined,
+    register: undefined,
+  };
+
   return (
     <div className="flex flex-col gap-2">
       {label && (
@@ -31,6 +38,7 @@ export default function TextArea(props: TextAreaProps) {
       )}
       <textarea
         id={name}
+        {...textAreaProps}
         {...register(name, registerOptions)}
         rows={rows ?? defaultRows}
         className={classNames(
