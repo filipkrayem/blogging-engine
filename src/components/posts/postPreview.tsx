@@ -58,7 +58,7 @@ export default function PostPreview(props: PostPreviewProps) {
         <AuthorAndDate name={post.author.name} date={post.created_at} />
 
         <div className="line-clamp-3 prose">
-          <ReactMarkdown>{post.content}</ReactMarkdown>
+          <ReactMarkdown>{post.perex}</ReactMarkdown>
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

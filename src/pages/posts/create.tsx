@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 type CreatePostInput = {
   title: string;
   content: string;
+  perex: string;
 };
 
 export default function PostCreate() {
@@ -47,10 +48,6 @@ export default function PostCreate() {
     reset();
   };
 
-  const handlePublish = () => {
-    console.log("Publishing article");
-  };
-
   return (
     <form
       className="flex w-full flex-1 flex-col gap-6 xl:w-2/3"
@@ -59,7 +56,7 @@ export default function PostCreate() {
       <div className="flex flex-col gap-8 md:flex-row md:items-center">
         <h2 className="h1 font-medium">Create new article</h2>
         <div className="w-1/3 md:w-auto">
-          <Button buttonType="primary" onClick={handlePublish}>
+          <Button buttonType="primary" type="submit">
             Publish article
           </Button>
         </div>
@@ -90,6 +87,18 @@ export default function PostCreate() {
                 toast.error("Error uploading image");
               }}
             />
+          </div>
+          <div className="flex flex-col gap-8">
+            <TextArea
+              register={register}
+              className="text-xl"
+              name="perex"
+              registerOptions={{ required: "Perex is required" }}
+              label="Perex"
+              placeholder="Short description of the article"
+              rows={4}
+            ></TextArea>
+            <FormError name="perex" errors={errors} />
           </div>
           <div className="flex flex-col gap-8">
             <TextArea

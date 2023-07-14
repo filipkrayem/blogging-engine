@@ -6,7 +6,6 @@ export const commentsRouter = createTRPCRouter({
     .input(
       z.object({
         postId: z.string(),
-        // page: z.number().default(1),
       })
     )
     .query(({ ctx, input }) => {

@@ -11,7 +11,7 @@ export default function Navbar() {
 
   return (
     <nav>
-      <div className="w-full px-10 lg:px-pageGutter h-14 flex flex-1 justify-between items-center">
+      <div className="w-full px-10 lg:px-pageGutter h-14 flex flex-1 justify-between items-center bg-bgLight">
         <div className="flex items-center gap-8">
           <div>
             <Image
@@ -51,7 +51,7 @@ export default function Navbar() {
         </div>
       </div>
       <div
-        className={`fixed z-40 w-full font-medium text-4xl px-8 bg-gray-100 overflow-hidden flex flex-col lg:hidden gap-10 origin-top duration-700 ${
+        className={`fixed z-40 w-full font-medium text-4xl px-8 bg-bgLight overflow-hidden flex flex-col lg:hidden gap-10 origin-top duration-700 ${
           !toggleMenu ? "h-0" : "h-full"
         }`}
       >

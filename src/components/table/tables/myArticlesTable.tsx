@@ -28,7 +28,7 @@ const makeData = (posts: PostWithAuthor[]): PostRows[] => {
     id: post.id,
     author: post.author.name,
     title: post.title,
-    perex: post.content.slice(0, 50).concat("..."),
+    perex: post.perex,
     commentCount: post._count.comments,
   }));
 };

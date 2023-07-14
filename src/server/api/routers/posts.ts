@@ -48,10 +48,15 @@ export const postsRouter = createTRPCRouter({
 
   create: protectedProcedure
     .input(
-      z.object({ title: z.string(), content: z.string(), imageUrl: z.string() })
+      z.object({
+        title: z.string(),
+        content: z.string(),
+        perex: z.string(),
+        imageUrl: z.string(),
+      })
     )
     .mutation(({ ctx, input }) => {
-      const { title, content, imageUrl } = input;
+      const { title, content, imageUrl, perex } = input;
       const userId = ctx.session.user.id;
 
       return ctx.prisma.post.create({
@@ -59,6 +64,7 @@ export const postsRouter = createTRPCRouter({
           title,
           content,
           imageUrl,
+          perex,
           author: { connect: { id: userId } },
           published: true,
         },
@@ -112,15 +118,17 @@ export const postsRouter = createTRPCRouter({
         id: z.string(),
         title: z.string(),
         content: z.string(),
+        perex: z.string(),
         imageUrl: z.string(),
         published: z.boolean(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
+      const { id, title, content, imageUrl, perex, published } = input;
 
       const post = await ctx.prisma.post.findUnique({
-        where: { id: input.id },
+        where: { id: id },
         select: {
           authorId: true,
         },
@@ -131,12 +139,13 @@ export const postsRouter = createTRPCRouter({
       }
 
       return ctx.prisma.post.update({
-        where: { id: input.id },
+        where: { id: id },
         data: {
-          title: input.title,
-          content: input.content,
-          imageUrl: input.imageUrl,
-          published: input.published,
+          title,
+          content,
+          imageUrl,
+          published,
+          perex,
         },
       });
     }),

@@ -17,6 +17,7 @@ model Post {
   updated_at DateTime  @updatedAt
   title      String
   content    String    @db.LongText
+  perex      String    @db.Text
   published  Boolean   @default(false)
   author     User      @relation(fields: [authorId], references: [id])
   authorId   String
@@ -34,7 +35,7 @@ model Comment {
   content    String
   author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId   String
-  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade) 
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId     String
 
   @@index([authorId])

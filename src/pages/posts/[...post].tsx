@@ -55,7 +55,6 @@ export default function PostDetail() {
         </div>
         <Comments postId={post.id} />
       </div>
-      <div className="">suggested articles</div>
     </div>
   );
 }

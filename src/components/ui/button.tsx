@@ -2,11 +2,11 @@ import classNames from "classnames";
 import { HTMLProps } from "react";
 
 type ButtonProps = HTMLProps<HTMLButtonElement> & {
-  onClick: () => void;
   children: React.ReactNode;
   buttonType: "primary" | "secondary";
   className?: string;
   type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 };
 
 export default function Button(props: ButtonProps) {
