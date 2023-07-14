@@ -52,7 +52,7 @@ export const postsRouter = createTRPCRouter({
         title: z.string(),
         content: z.string(),
         perex: z.string(),
-        imageUrl: z.string(),
+        imageUrl: z.string().optional(),
       })
     )
     .mutation(({ ctx, input }) => {

@@ -7,7 +7,7 @@ export default function useCreatePost() {
 
   const utils = api.useContext();
   const createPost = api.posts.create.useMutation({
-    onMutate: async ({ title, content, imageUrl }) => {
+    onMutate: async ({ title, content, perex, imageUrl }) => {
       await utils.posts.getPublished.cancel();
 
       const previousPosts = utils.posts.getPublished.getData();
@@ -17,9 +17,10 @@ export default function useCreatePost() {
           created_at: new Date(),
           content,
           id: Math.random().toString(),
-          imageUrl,
+          imageUrl: imageUrl ?? null,
           published: true,
           title,
+          perex,
           updated_at: new Date(),
           authorId: session.data!.user.id,
           author: session.data!.user,
