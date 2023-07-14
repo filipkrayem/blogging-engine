@@ -6,8 +6,11 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "prisma generate",
+    "precommit": "npm run lint && npm run typecheck",
+    "typecheck": "tsc --noEmit",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.1",
@@ -46,6 +49,7 @@
     "autoprefixer": "^10.4.14",
     "eslint": "^8.40.0",
     "eslint-config-next": "^13.4.2",
+    "husky": "^8.0.3",
     "postcss": "^8.4.21",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
