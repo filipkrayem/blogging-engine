@@ -12,9 +12,11 @@ type ButtonProps = HTMLProps<HTMLButtonElement> & {
 export default function Button(props: ButtonProps) {
   const { children, className, buttonType } = props;
 
+  const buttonProps = { ...props, buttonType: undefined };
+
   return (
     <button
-      {...props}
+      {...buttonProps}
       className={classNames(`rounded px-4 py-2`, className, {
         "btn-primary": buttonType === "primary",
         "btn-secondary": buttonType === "secondary",

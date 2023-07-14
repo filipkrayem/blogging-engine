@@ -3,6 +3,19 @@ import Link from "../link";
 import Avatar from "../ui/avatar";
 import SvgIcon from "../ui/svgIcon";
 
+const links = [
+  {
+    href: "/user/posts",
+    label: "My Articles",
+    className: "text-secondary hover:text-body",
+  },
+  {
+    href: "/posts/create",
+    label: "Create Article",
+    className: "text-primary hover:text-primaryDarker",
+  },
+];
+
 export default function NavRight() {
   const session = useSession();
 
@@ -42,16 +55,3 @@ export default function NavRight() {
     </div>
   );
 }
-
-const links = [
-  {
-    href: "/user/id/posts",
-    label: "My Articles",
-    className: "text-secondary hover:text-body",
-  },
-  {
-    href: "/posts/create",
-    label: "Create Article",
-    className: "text-primary hover:text-primaryDarker",
-  },
-];

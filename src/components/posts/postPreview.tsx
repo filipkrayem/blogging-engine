@@ -1,17 +1,12 @@
-import { type Post, type User } from "@prisma/client";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "../link";
 import AuthorAndDate from "../ui/authorAndDate";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { PostWithAuthor } from "~/types/post";
 
 type PostPreviewProps = {
-  post: Post & {
-    author: User;
-    _count: {
-      comments: number;
-    };
-  };
+  post: PostWithAuthor;
 };
 
 export default function PostPreview(props: PostPreviewProps) {

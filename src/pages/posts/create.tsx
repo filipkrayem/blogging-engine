@@ -8,6 +8,7 @@ import useCreatePost from "~/hooks/mutations/posts/useCreatePost";
 import { toast } from "react-hot-toast";
 import FormError from "~/components/form/formError";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 type CreatePostInput = {
   title: string;
@@ -17,6 +18,10 @@ type CreatePostInput = {
 export default function PostCreate() {
   const [imageUrl, setImageUrl] = useState<string>("");
   const router = useRouter();
+
+  useSession({
+    required: true,
+  });
 
   const {
     register,
