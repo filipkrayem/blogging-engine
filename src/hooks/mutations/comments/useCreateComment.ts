@@ -35,7 +35,7 @@ export default function useCreateComment() {
       );
       utils.comments.get.setData({ postId: vars.postId }, previousComments);
     },
-    onSettled: (_data, _err, vars) => {
+    onSettled: (_data, _err, vars, _ctx) => {
       void utils.comments.get.invalidate({ postId: vars.postId });
     },
   });

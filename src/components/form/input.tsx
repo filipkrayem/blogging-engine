@@ -12,6 +12,13 @@ type InputProps = HTMLProps<HTMLInputElement> & {
 export default function Input(props: InputProps) {
   const { label, register, name, registerOptions } = props;
 
+  //fixes react warning
+  const inputProps = {
+    ...props,
+    registerOptions: undefined,
+    register: undefined,
+  };
+
   return (
     <div className="flex w-full flex-col gap-2">
       {label && (
@@ -20,10 +27,8 @@ export default function Input(props: InputProps) {
         </label>
       )}
       <input
-        {...props}
+        {...inputProps}
         {...register(name, registerOptions)}
-        //@ts-ignore
-        register={undefined}
         className="w-full rounded border border-borderLight px-4 py-2 placeholder:text-muted"
       ></input>
     </div>

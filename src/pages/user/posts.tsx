@@ -5,6 +5,7 @@ import Table from "~/components/table/table";
 import MyArticlesTable from "~/components/table/tables/myArticlesTable";
 import Button from "~/components/ui/button";
 import { LoadingPage } from "~/components/ui/loading";
+import useDeletePost from "~/hooks/mutations/posts/useDeletePost";
 import { api } from "~/utils/api";
 
 export default function UserPosts() {
@@ -14,6 +15,7 @@ export default function UserPosts() {
 
   const router = useRouter();
   const { data, isLoading, isError, error } = api.posts.getByUser.useQuery();
+  const deletePost = useDeletePost();
 
   const handleCreate = async () => {
     await router.push("/posts/create");
@@ -22,8 +24,16 @@ export default function UserPosts() {
   if (isLoading) return <LoadingPage />;
   if (isError) return <Error message={error.message} />;
 
+  const onPostEditClick = async (postId: string) => {
+    await router.push(`/posts/${postId}/edit`);
+  };
+
+  const onPostDeleteClick = (postId: string) => {
+    deletePost.mutate(postId);
+  };
+
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 w-full">
       <div className="flex flex-row gap-8">
         <h2 className="h1 font-medium">My Articles</h2>
         <div className="w-1/3 md:w-auto">
@@ -33,7 +43,11 @@ export default function UserPosts() {
         </div>
       </div>
 
-      <MyArticlesTable posts={data} />
+      <MyArticlesTable
+        posts={data}
+        onPostEditClick={onPostEditClick}
+        onPostDeleteClick={onPostDeleteClick}
+      />
     </div>
   );
 }

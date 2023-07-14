@@ -80,4 +80,64 @@ export const postsRouter = createTRPCRouter({
       },
     });
   }),
+
+  delete: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      const post = await ctx.prisma.post.findUnique({
+        where: { id: input },
+        select: {
+          authorId: true,
+        },
+      });
+      console.log(userId, post?.authorId);
+
+      //NOTE: this would also be the place where I'd check if the user has admin privileges
+      // Admins can delete any post, but regular users can only delete their own posts
+
+      if (post?.authorId !== userId) {
+        throw new Error("You are not authorized to delete this post");
+      }
+
+      return ctx.prisma.post.delete({
+        where: { id: input },
+      });
+    }),
+
+  update: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        content: z.string(),
+        imageUrl: z.string(),
+        published: z.boolean(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      const post = await ctx.prisma.post.findUnique({
+        where: { id: input.id },
+        select: {
+          authorId: true,
+        },
+      });
+
+      if (post?.authorId !== userId) {
+        throw new Error("You are not authorized to update this post");
+      }
+
+      return ctx.prisma.post.update({
+        where: { id: input.id },
+        data: {
+          title: input.title,
+          content: input.content,
+          imageUrl: input.imageUrl,
+          published: input.published,
+        },
+      });
+    }),
 });

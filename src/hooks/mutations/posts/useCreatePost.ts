@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 
 export default function useCreatePost() {
-  const session = useSession();
+  const session = useSession({ required: true });
 
   const utils = api.useContext();
   const createPost = api.posts.create.useMutation({
@@ -11,10 +11,6 @@ export default function useCreatePost() {
       await utils.posts.getPublished.cancel();
 
       const previousPosts = utils.posts.getPublished.getData();
-
-      if (!session.data) {
-        throw new Error("You must be signed in to create a post.");
-      }
 
       utils.posts.getPublished.setData(undefined, (old) => [
         {
@@ -25,8 +21,8 @@ export default function useCreatePost() {
           published: true,
           title,
           updated_at: new Date(),
-          authorId: session.data.user.id,
-          author: session.data.user,
+          authorId: session.data!.user.id,
+          author: session.data!.user,
           _count: {
             comments: 0,
           },
@@ -48,7 +44,7 @@ export default function useCreatePost() {
       utils.posts.getPublished.setData(undefined, ctx);
     },
 
-    onSettled: (_data, _error, _variables, _context) => {
+    onSettled: (_data, _err, _vars, _ctx) => {
       void utils.posts.getPublished.invalidate();
     },
   });

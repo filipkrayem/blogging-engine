@@ -11,13 +11,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import IndeterminateCheckbox from "../indeterminateCheckbox";
-import classNames from "classnames";
-import SvgIcon from "../../ui/svgIcon";
-import { PostWithAuthor } from "~/types/post";
-//NOTE: when developing an actual app that is going to have a lot of tables,
-// I would create a default table component that could be passed props and reused throughout other tables
-// Now, since we have only one table and it's time consuming to create a table component
-// I'm just going to create the table here.
 
 type PostRows = {
   id: string;
@@ -39,20 +32,27 @@ const makeData = (posts: PostWithAuthor[]): PostRows[] => {
 
 type MyArticlesTableProps = {
   posts: PostWithAuthor[];
+  onPostEditClick: (postId: string) => void;
+  onPostDeleteClick: (postId: string) => void;
 };
 
+//NOTE: when developing an actual app that is going to have a lot of tables,
+// I would create a default table component that could be passed props and reused throughout other tables
+// Now, since we have only one table and it's time consuming to create a table component
+// I'm just going to create the table here.
 export default function MyArticlesTable(props: MyArticlesTableProps) {
-  const rerender = useReducer(() => ({}), {})[1];
+  const { onPostEditClick, onPostDeleteClick, posts } = props;
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const data = useMemo(() => makeData(props.posts), [props.posts]);
+  const data = useMemo(() => makeData(posts), [posts]);
 
   const columns = useMemo<ColumnDef<PostRows>[]>(
     () => [
       {
         id: "select",
+        size: 20,
         header: ({ table }) => (
           <IndeterminateCheckbox
             {...{
@@ -95,12 +95,32 @@ export default function MyArticlesTable(props: MyArticlesTableProps) {
       },
       {
         accessorKey: "commentCount",
-        header: "# of Comments",
-        size: 160,
+        header: "# of comments",
+        size: 180,
         enableResizing: true,
       },
+      {
+        accessorKey: "actions",
+        header: "Actions",
+        size: 160,
+        enableResizing: true,
+        cell: ({ row }) => (
+          <div className="flex flex-row gap-5 items-center">
+            <SvgIcon
+              name="edit"
+              size={24}
+              onClick={() => onPostEditClick(row.original.id)}
+            />
+            <SvgIcon
+              name="delete"
+              size={24}
+              onClick={() => onPostDeleteClick(row.original.id)}
+            />
+          </div>
+        ),
+      },
     ],
-    []
+    [onPostDeleteClick, onPostEditClick]
   );
 
   const table = useReactTable({
@@ -122,7 +142,7 @@ export default function MyArticlesTable(props: MyArticlesTableProps) {
   });
 
   return (
-    <div className="p-2 overflow-x-auto">
+    <div className="p-2 overflow-x-auto w-full">
       <table
         style={{
           width: table.getCenterTotalSize(),
@@ -173,7 +193,7 @@ export default function MyArticlesTable(props: MyArticlesTableProps) {
             .rows.slice(0, 10)
             .map((row) => {
               return (
-                <tr key={row.id}>
+                <tr key={row.id} className="border-b border-b-borderLight">
                   {row.getVisibleCells().map((cell) => {
                     return (
                       <td
@@ -195,11 +215,6 @@ export default function MyArticlesTable(props: MyArticlesTableProps) {
             })}
         </tbody>
       </table>
-      <div>{table.getRowModel().rows.length} Rows</div>
-      <div>
-        <button onClick={() => rerender()}>Force Rerender</button>
-      </div>
-      <pre>{JSON.stringify(sorting, null, 2)}</pre>
     </div>
   );
 }
