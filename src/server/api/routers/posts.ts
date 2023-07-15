@@ -98,10 +98,6 @@ export const postsRouter = createTRPCRouter({
           authorId: true,
         },
       });
-      console.log(userId, post?.authorId);
-
-      //NOTE: this would also be the place where I'd check if the user has admin privileges
-      // Admins can delete any post, but regular users can only delete their own posts
 
       if (post?.authorId !== userId) {
         throw new Error("You are not authorized to delete this post");

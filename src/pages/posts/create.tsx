@@ -20,6 +20,8 @@ type CreatePostInput = {
 
 export default function PostCreate() {
   const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
+
   const [preview, setPreview] = useState<boolean>(false);
 
   const router = useRouter();
@@ -56,7 +58,12 @@ export default function PostCreate() {
     reset();
   };
 
-  const { startUpload } = useUploadThing("imageUploader", {});
+  const { startUpload } = useUploadThing("imageUploader", {
+    onClientUploadComplete: (res) => {
+      if (!res || !res[0]) return;
+      setImageUrl(res[0].fileUrl);
+    },
+  });
 
   const handlePreview = () => {
     setPreview(!preview);
@@ -68,6 +75,7 @@ export default function PostCreate() {
   };
 
   const handleRemoveImage = () => {
+    setPreviewUrl(undefined);
     setImageUrl(undefined);
   };
 
@@ -76,13 +84,17 @@ export default function PostCreate() {
     if (!event.target.files) return;
 
     const fileUploaded = event.target.files[0];
-    await toast.promise(startUpload([fileUploaded as File]), {
-      loading: "Uploading image...",
-      success: "Image successfully uploaded",
-      error: "Error uploading image",
-    });
+    try {
+      await toast.promise(startUpload([fileUploaded as File]), {
+        loading: "Uploading image...",
+        success: "Image successfully uploaded",
+        error: "Error uploading image",
+      });
 
-    setImageUrl(URL.createObjectURL(fileUploaded!));
+      setPreviewUrl(URL.createObjectURL(fileUploaded!));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -131,7 +143,7 @@ export default function PostCreate() {
                   onChange={handleFileUpload}
                   className="hidden"
                 />
-                {imageUrl && (
+                {previewUrl && imageUrl && (
                   <p
                     className="cursor-pointer text-red-600"
                     onClick={handleRemoveImage}
@@ -140,10 +152,10 @@ export default function PostCreate() {
                   </p>
                 )}
               </div>
-              {imageUrl && (
+              {previewUrl && imageUrl && (
                 <div className="">
                   <Image
-                    src={imageUrl}
+                    src={previewUrl}
                     alt="image"
                     priority
                     width={0}

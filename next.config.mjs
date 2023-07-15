@@ -9,6 +9,7 @@ const config = {
   },
 
   images: {
+    loader: "default",
     remotePatterns: [
       {
         protocol: "https",

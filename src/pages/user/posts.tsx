@@ -41,12 +41,15 @@ export default function UserPosts() {
           </Button>
         </div>
       </div>
-
-      <MyArticlesTable
-        posts={data}
-        onPostEditClick={onPostEditClick}
-        onPostDeleteClick={onPostDeleteClick}
-      />
+      {data.length === 0 ? (
+        <div>You don&apos;t have any articles yet...</div>
+      ) : (
+        <MyArticlesTable
+          posts={data}
+          onPostEditClick={onPostEditClick}
+          onPostDeleteClick={onPostDeleteClick}
+        />
+      )}
     </div>
   );
 }

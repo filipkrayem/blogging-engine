@@ -1,4 +1,3 @@
-import Image from "next/image";
 type IconProps = {
   name: string;
   size: number;
@@ -13,7 +12,8 @@ export default function SvgIcon(props: IconProps) {
   const defaultSize = 12;
 
   return (
-    <Image
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       src={`/icons/${name}.svg`}
       alt={alt ?? "icon"}
       width={size ?? defaultSize}
@@ -24,6 +24,6 @@ export default function SvgIcon(props: IconProps) {
       }}
       className={className}
       onClick={props.onClick}
-    ></Image>
+    />
   );
 }
