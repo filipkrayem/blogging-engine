@@ -13,4 +13,4 @@ This is a blogging engine I created as an [exercise](https://github.com/Applifti
 - [PlanetScale](https://planetscale.com/) - a serverless MySQL database.
 - [Tailwind](https://github.com/tailwindlabs/tailwindcss) - for the best styling experience.
 
-The app is deployed on Vercel under this [url](https://applifing-excercise.vercel.app/) and was created with the [T3 cli](https://github.com/t3-oss/create-t3-app)
+The app was created with the [T3 cli](https://github.com/t3-oss/create-t3-app)
